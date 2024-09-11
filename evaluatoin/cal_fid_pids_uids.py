@@ -135,7 +135,7 @@ def calculate_metrics(folder1, folder2):
     # build detector
     detector_url = 'https://nvlabs-fi-cdn.nvidia.com/stylegan2-ada-pytorch/pretrained/metrics/inception-2015-12-05.pt'
     detector_kwargs = dict(return_features=True) # Return raw features before the softmax layer.
-    device = torch.device('cuda:0')
+    device = torch.device('cpu')
     detector = get_feature_detector(url=detector_url, device=device, num_gpus=1, rank=0, verbose=False)
     detector.eval()
 

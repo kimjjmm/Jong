@@ -36,7 +36,7 @@ def calculate_metrics(folder1, folder2):
 
     # l1 = l1[:3]; l2 = l2[:3];
 
-    device = torch.device('cuda:0')
+    device = torch.device('cpu')
     loss_fn = lpips.LPIPS(net='alex').to(device)
     loss_fn.eval()
     # loss_fn = lpips.LPIPS(net='vgg').to(device)

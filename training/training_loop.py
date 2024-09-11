@@ -1,4 +1,5 @@
-﻿# Copyright (c) 2021, NVIDIA CORPORATION.  All rights reserved.
+
+# Copyright (c) 2021, NVIDIA CORPORATION.  All rights reserved.
 #
 # NVIDIA CORPORATION and its licensors retain all intellectual property
 # and proprietary rights in and to this software, related documentation
@@ -25,6 +26,7 @@ import legacy
 from metrics import metric_main
 
 #----------------------------------------------------------------------------
+device = torch.device('cpu')
 
 def setup_snapshot_image_grid(training_set, random_seed=0):
     rnd = np.random.RandomState(random_seed)
@@ -110,7 +112,7 @@ def training_loop(
     ada_target              = None,     # ADA target value. None = fixed p.
     ada_interval            = 4,        # How often to perform ADA adjustment?
     ada_kimg                = 500,      # ADA adjustment speed, measured in how many kimg it takes for p to increase/decrease by one unit.
-    total_kimg              = 25000,    # Total length of the training, measured in thousands of real images.
+    total_kimg              = 100,    # Total length of the training, measured in thousands of real images.
     kimg_per_tick           = 4,        # Progress snapshot interval.
     image_snapshot_ticks    = 50,       # How often to save image snapshots? None = disable.
     network_snapshot_ticks  = 50,       # How often to save network snapshots? None = disable.
@@ -122,7 +124,7 @@ def training_loop(
 ):
     # Initialize.
     start_time = time.time()
-    device = torch.device('cuda', rank)
+    device = torch.device('cpu', rank)
     np.random.seed(random_seed * num_gpus + rank)
     torch.manual_seed(random_seed * num_gpus + rank)
     torch.backends.cudnn.benchmark = cudnn_benchmark    # Improves training speed.
@@ -239,8 +241,14 @@ def training_loop(
         phase.start_event = None
         phase.end_event = None
         if rank == 0:
-            phase.start_event = torch.cuda.Event(enable_timing=True)
-            phase.end_event = torch.cuda.Event(enable_timing=True)
+            if torch.cuda.is_available():
+                # GPU 환경에서는 torch.cuda.Event 사용
+                phase.start_event = torch.cuda.Event(enable_timing=True)
+                phase.end_event = torch.cuda.Event(enable_timing=True)
+            else:
+                # CPU 환경에서는 time.time() 사용
+                phase.start_event = time.time
+                phase.end_event = time.time
 
     # Export sample images.
     grid_size = None
@@ -305,17 +313,24 @@ def training_loop(
             all_gen_z = torch.randn([len(phases) * batch_size, G.z_dim], device=device)
             all_gen_z = [phase_gen_z.split(batch_gpu) for phase_gen_z in all_gen_z.split(batch_size)]
             all_gen_c = [training_set.get_label(np.random.randint(len(training_set))) for _ in range(len(phases) * batch_size)]
-            all_gen_c = torch.from_numpy(np.stack(all_gen_c)).pin_memory().to(device)
+            all_gen_c = torch.from_numpy(np.stack(all_gen_c)).to(device)
             all_gen_c = [phase_gen_c.split(batch_gpu) for phase_gen_c in all_gen_c.split(batch_size)]
+
 
         # Execute training phases.
         for phase, phase_gen_z, phase_gen_c in zip(phases, all_gen_z, all_gen_c):
             if batch_idx % phase.interval != 0:
                 continue
 
-            # Initialize gradient accumulation.
+                # Initialize gradient accumulation.
             if phase.start_event is not None:
-                phase.start_event.record(torch.cuda.current_stream(device))
+                if torch.cuda.is_available():
+                    # GPU 환경에서는 torch.cuda.Event 사용
+                    phase.start_event.record(torch.cuda.current_stream(device))
+                else:
+                    # CPU 환경에서는 time.time() 사용
+                    phase.start_time = time.time()  # 타이밍 시작 기록
+
             phase.opt.zero_grad(set_to_none=True)
             phase.module.requires_grad_(True)
 
@@ -332,8 +347,19 @@ def training_loop(
                     if param.grad is not None:
                         misc.nan_to_num(param.grad, nan=0, posinf=1e5, neginf=-1e5, out=param.grad)
                 phase.opt.step()
+                # Finalize timing measurement
             if phase.end_event is not None:
-                phase.end_event.record(torch.cuda.current_stream(device))
+                if torch.cuda.is_available():
+                    # GPU 환경에서는 torch.cuda.Event 사용
+                    phase.end_event.record(torch.cuda.current_stream(device))
+                    torch.cuda.synchronize()  # GPU 연산 동기화
+                    elapsed_time = phase.start_event.elapsed_time(phase.end_event)
+                    print(f"Elapsed time on GPU: {elapsed_time} ms")
+                else:
+                    # CPU 환경에서는 time.time() 사용
+                    end_time = time.time()  # 타이밍 종료 기록
+                    elapsed_time = (end_time - phase.start_time) * 1000  # 밀리초 단위로 변환
+                    print(f"Elapsed time on CPU: {elapsed_time} ms")
 
         # Update G_ema.
         with torch.autograd.profiler.record_function('Gema'):

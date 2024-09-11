@@ -974,7 +974,7 @@ class Discriminator(torch.nn.Module):
 
 
 if __name__ == '__main__':
-    device = torch.device('cuda:0')
+    device = torch.device('cpu')
     batch = 1
     res = 512
     G = Generator(z_dim=512, c_dim=0, w_dim=512, img_resolution=512, img_channels=3).to(device)

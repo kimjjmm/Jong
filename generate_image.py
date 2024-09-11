@@ -84,7 +84,7 @@ def generate_images(
     random.seed(seed)
     np.random.seed(seed)
     torch.manual_seed(seed)
-    torch.cuda.manual_seed(seed)
+    torch.manual_seed(seed)
 
     print(f'Loading data from: {dpath}')
     img_list = sorted(glob.glob(dpath + '/*.png') + glob.glob(dpath + '/*.jpg'))
@@ -95,7 +95,7 @@ def generate_images(
         assert len(img_list) == len(mask_list), 'illegal mapping'
 
     print(f'Loading networks from: {network_pkl}')
-    device = torch.device('cuda')
+    device = torch.device('cpu')
     with dnnlib.util.open_url(network_pkl) as f:
         G_saved = legacy.load_network_pkl(f)['G_ema'].to(device).eval().requires_grad_(False) # type: ignore
     net_res = 512 if resolution > 512 else resolution

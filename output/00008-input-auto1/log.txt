@@ -1,0 +1,18 @@
+Traceback (most recent call last):
+  File "D:\Jong\Jong\MAT\train.py", line 667, in <module>
+    main() # pylint: disable=no-value-for-parameter
+  File "D:\Jong\Jong\lib\site-packages\click\core.py", line 1157, in __call__
+    return self.main(*args, **kwargs)
+  File "D:\Jong\Jong\lib\site-packages\click\core.py", line 1078, in main
+    rv = self.invoke(ctx)
+  File "D:\Jong\Jong\lib\site-packages\click\core.py", line 1434, in invoke
+    return ctx.invoke(self.callback, **ctx.params)
+  File "D:\Jong\Jong\lib\site-packages\click\core.py", line 783, in invoke
+    return __callback(*args, **kwargs)
+  File "D:\Jong\Jong\lib\site-packages\click\decorators.py", line 33, in new_func
+    return f(get_current_context(), *args, **kwargs)
+  File "D:\Jong\Jong\MAT\train.py", line 660, in main
+    subprocess_fn(rank=0, args=args, temp_dir=temp_dir)
+  File "D:\Jong\Jong\MAT\train.py", line 489, in subprocess_fn
+    training_loop.training_loop(rank=rank, **args)
+AttributeError: module 'training.training_loop' has no attribute 'training_loop'

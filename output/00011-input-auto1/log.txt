@@ -1,0 +1,214 @@
+Loading training set...
+D:\Jong\Jong\lib\site-packages\torch\utils\data\sampler.py:65: UserWarning: `data_source` argument is not used and will be removed in 2.2.0.You may still have custom implementation that utilizes it.
+  warnings.warn("`data_source` argument is not used and will be removed in 2.2.0."
+
+Num images:  1
+Image shape: [3, 512, 512]
+Label shape: [0]
+
+Constructing networks...
+
+Generator                            Parameters  Buffers  Output shape        Datatype
+---                                  ---         ---      ---                 ---     
+mapping.fc0                          262656      -        [8, 512]            float32 
+mapping.fc1                          262656      -        [8, 512]            float32 
+mapping                              -           512      [8, 12, 512]        float32 
+synthesis.first_stage.conv_first:0   6660        16       [8, 180, 512, 512]  float32 
+synthesis.first_stage.conv_first:1   -           -        [8, 180, 512, 512]  float32 
+synthesis.first_stage.enc_conv.0:0   291780      16       [8, 180, 256, 256]  float32 
+synthesis.first_stage.enc_conv.0:1   -           -        [8, 180, 256, 256]  float32 
+synthesis.first_stage.enc_conv.1:0   291780      16       [8, 180, 128, 128]  float32 
+synthesis.first_stage.enc_conv.1:1   -           -        [8, 180, 128, 128]  float32 
+synthesis.first_stage.enc_conv.2:0   291780      16       [8, 180, 64, 64]    float32 
+synthesis.first_stage.enc_conv.2:1   -           -        [8, 180, 64, 64]    float32 
+synthesis.first_stage.tran.0:0       942660      262160   [8, 4096, 180]      float32 
+synthesis.first_stage.tran.0:1       -           -        [8, 4096, 180]      float32 
+synthesis.first_stage.tran.1:0       1559880     262176   [8, 1024, 180]      float32 
+synthesis.first_stage.tran.1:1       -           -        [8, 1024, 180]      float32 
+synthesis.first_stage.tran.2         1885320     32       [8, 256, 180]       float32 
+synthesis.first_stage.ws_style       92340       -        [8, 180]            float32 
+synthesis.first_stage.to_square      46336       -        [8, 256]            float32 
+synthesis.first_stage.down_conv      1167120     64       [8, 180, 1, 1]      float32 
+synthesis.first_stage.to_style       65160       -        [8, 360]            float32 
+synthesis.first_stage.tran.3         1559880     262176   [8, 1024, 180]      float32 
+synthesis.first_stage.tran.4         1234440     262176   [8, 4096, 180]      float32 
+synthesis.first_stage.dec_conv.0:0   876243      64       [8, 180, 128, 128]  float32 
+synthesis.first_stage.dec_conv.0:1   -           -        [8, 180, 128, 128]  float32 
+synthesis.first_stage.dec_conv.1:0   876243      64       [8, 180, 256, 256]  float32 
+synthesis.first_stage.dec_conv.1:1   -           -        [8, 180, 256, 256]  float32 
+synthesis.first_stage.dec_conv.2:0   876243      64       [8, 180, 512, 512]  float32 
+synthesis.first_stage.dec_conv.2:1   -           -        [8, 180, 512, 512]  float32 
+synthesis.first_stage                -           -        [8, 3, 512, 512]    float32 
+synthesis.enc.EncConv_Block_512x512  37440       32       [8, 64, 512, 512]   float32 
+synthesis.enc.EncConv_Block_256x256  221440      32       [8, 128, 256, 256]  float32 
+synthesis.enc.EncConv_Block_128x128  885248      32       [8, 256, 128, 128]  float32 
+synthesis.enc.EncConv_Block_64x64    3539968     32       [8, 512, 64, 64]    float32 
+synthesis.enc.EncConv_Block_32x32    4719616     32       [8, 512, 32, 32]    float32 
+synthesis.enc.EncConv_Block_16x16    4719616     32       [8, 512, 16, 16]    float32 
+synthesis.to_square                  131328      -        [8, 256]            float32 
+synthesis.to_style.conv              7079424     48       [8, 512, 2, 2]      float32 
+synthesis.to_style.pool              -           -        [8, 512, 1, 1]      float32 
+synthesis.to_style.fc                525312      -        [8, 1024]           float32 
+synthesis.dec.Dec_16x16:0            6295044     320      [8, 512, 16, 16]    float32 
+synthesis.dec.Dec_16x16:1            -           -        [8, 512, 16, 16]    float32 
+synthesis.dec.Dec_32x32:0            7081989     2112     [8, 512, 32, 32]    float32 
+synthesis.dec.Dec_32x32:1            -           -        [8, 512, 32, 32]    float32 
+synthesis.dec.Dec_64x64:0            7081989     8256     [8, 512, 64, 64]    float32 
+synthesis.dec.Dec_64x64:1            -           -        [8, 512, 64, 64]    float32 
+synthesis.dec.Dec_128x128:0          3344645     32832    [8, 256, 128, 128]  float32 
+synthesis.dec.Dec_128x128:1          -           -        [8, 256, 128, 128]  float32 
+synthesis.dec.Dec_256x256:0          1229957     131136   [8, 128, 256, 256]  float32 
+synthesis.dec.Dec_256x256:1          -           -        [8, 128, 256, 256]  float32 
+synthesis.dec.Dec_512x512:0          504389      524352   [8, 64, 512, 512]   float32 
+synthesis.dec.Dec_512x512:1          -           -        [8, 64, 512, 512]   float32 
+synthesis                            -           -        [8, 3, 512, 512]    float32 
+---                                  ---         ---      ---                 ---     
+Total                                59986582    1748800  -                   -       
+
+
+Discriminator     Parameters  Buffers  Output shape        Datatype
+---               ---         ---      ---                 ---     
+Dis.0.conv        320         16       [8, 64, 512, 512]   float32 
+Dis.1.skip        8192        16       [8, 128, 256, 256]  float32 
+Dis.1.conv0       36928       16       [8, 64, 512, 512]   float32 
+Dis.1.conv1       73856       16       [8, 128, 256, 256]  float32 
+Dis.1             -           -        [8, 128, 256, 256]  float32 
+Dis.2.skip        32768       16       [8, 256, 128, 128]  float32 
+Dis.2.conv0       147584      16       [8, 128, 256, 256]  float32 
+Dis.2.conv1       295168      16       [8, 256, 128, 128]  float32 
+Dis.2             -           -        [8, 256, 128, 128]  float32 
+Dis.3.skip        131072      16       [8, 512, 64, 64]    float32 
+Dis.3.conv0       590080      16       [8, 256, 128, 128]  float32 
+Dis.3.conv1       1180160     16       [8, 512, 64, 64]    float32 
+Dis.3             -           -        [8, 512, 64, 64]    float32 
+Dis.4.skip        262144      16       [8, 512, 32, 32]    float32 
+Dis.4.conv0       2359808     16       [8, 512, 64, 64]    float32 
+Dis.4.conv1       2359808     16       [8, 512, 32, 32]    float32 
+Dis.4             -           -        [8, 512, 32, 32]    float32 
+Dis.5.skip        262144      16       [8, 512, 16, 16]    float32 
+Dis.5.conv0       2359808     16       [8, 512, 32, 32]    float32 
+Dis.5.conv1       2359808     16       [8, 512, 16, 16]    float32 
+Dis.5             -           -        [8, 512, 16, 16]    float32 
+Dis.6.skip        262144      16       [8, 512, 8, 8]      float32 
+Dis.6.conv0       2359808     16       [8, 512, 16, 16]    float32 
+Dis.6.conv1       2359808     16       [8, 512, 8, 8]      float32 
+Dis.6             -           -        [8, 512, 8, 8]      float32 
+Dis.7.skip        262144      16       [8, 512, 4, 4]      float32 
+Dis.7.conv0       2359808     16       [8, 512, 8, 8]      float32 
+Dis.7.conv1       2359808     16       [8, 512, 4, 4]      float32 
+Dis.7             -           -        [8, 512, 4, 4]      float32 
+Dis.8             -           -        [8, 513, 4, 4]      float32 
+Dis.9             2364416     16       [8, 512, 4, 4]      float32 
+fc0               4194816     -        [8, 512]            float32 
+fc1               513         -        [8, 1]              float32 
+Dis_stg1.0.conv   160         16       [8, 32, 512, 512]   float32 
+Dis_stg1.1.skip   2048        16       [8, 64, 256, 256]   float32 
+Dis_stg1.1.conv0  9248        16       [8, 32, 512, 512]   float32 
+Dis_stg1.1.conv1  18496       16       [8, 64, 256, 256]   float32 
+Dis_stg1.1        -           -        [8, 64, 256, 256]   float32 
+Dis_stg1.2.skip   8192        16       [8, 128, 128, 128]  float32 
+Dis_stg1.2.conv0  36928       16       [8, 64, 256, 256]   float32 
+Dis_stg1.2.conv1  73856       16       [8, 128, 128, 128]  float32 
+Dis_stg1.2        -           -        [8, 128, 128, 128]  float32 
+Dis_stg1.3.skip   32768       16       [8, 256, 64, 64]    float32 
+Dis_stg1.3.conv0  147584      16       [8, 128, 128, 128]  float32 
+Dis_stg1.3.conv1  295168      16       [8, 256, 64, 64]    float32 
+Dis_stg1.3        -           -        [8, 256, 64, 64]    float32 
+Dis_stg1.4.skip   65536       16       [8, 256, 32, 32]    float32 
+Dis_stg1.4.conv0  590080      16       [8, 256, 64, 64]    float32 
+Dis_stg1.4.conv1  590080      16       [8, 256, 32, 32]    float32 
+Dis_stg1.4        -           -        [8, 256, 32, 32]    float32 
+Dis_stg1.5.skip   65536       16       [8, 256, 16, 16]    float32 
+Dis_stg1.5.conv0  590080      16       [8, 256, 32, 32]    float32 
+Dis_stg1.5.conv1  590080      16       [8, 256, 16, 16]    float32 
+Dis_stg1.5        -           -        [8, 256, 16, 16]    float32 
+Dis_stg1.6.skip   65536       16       [8, 256, 8, 8]      float32 
+Dis_stg1.6.conv0  590080      16       [8, 256, 16, 16]    float32 
+Dis_stg1.6.conv1  590080      16       [8, 256, 8, 8]      float32 
+Dis_stg1.6        -           -        [8, 256, 8, 8]      float32 
+Dis_stg1.7.skip   65536       16       [8, 256, 4, 4]      float32 
+Dis_stg1.7.conv0  590080      16       [8, 256, 8, 8]      float32 
+Dis_stg1.7.conv1  590080      16       [8, 256, 4, 4]      float32 
+Dis_stg1.7        -           -        [8, 256, 4, 4]      float32 
+Dis_stg1.8        -           -        [8, 257, 4, 4]      float32 
+Dis_stg1.9        592384      16       [8, 256, 4, 4]      float32 
+fc0_stg1          1048832     -        [8, 256]            float32 
+fc1_stg1          257         -        [8, 1]              float32 
+---               ---         ---      ---                 ---     
+Total             36231618    736      -                   -       
+
+Setting up augmentation...
+Distributing across 1 GPUs...
+Setting up training phases...
+D:\Jong\Jong\lib\site-packages\torchvision\models\_utils.py:208: UserWarning: The parameter 'pretrained' is deprecated since 0.13 and may be removed in the future, please use 'weights' instead.
+  warnings.warn(
+D:\Jong\Jong\lib\site-packages\torchvision\models\_utils.py:223: UserWarning: Arguments other than a weight enum or `None` for 'weights' are deprecated since 0.13 and may be removed in the future. The current behavior is equivalent to passing `weights=VGG19_Weights.IMAGENET1K_V1`. You can also use `weights=VGG19_Weights.DEFAULT` to get the most up-to-date weights.
+  warnings.warn(msg)
+Exporting sample images...
+Initializing logs...
+Training for 25000 kimg...
+
+Traceback (most recent call last):
+  File "D:\Jong\Jong\MAT\train.py", line 667, in <module>
+    main() # pylint: disable=no-value-for-parameter
+  File "D:\Jong\Jong\lib\site-packages\click\core.py", line 1157, in __call__
+    return self.main(*args, **kwargs)
+  File "D:\Jong\Jong\lib\site-packages\click\core.py", line 1078, in main
+    rv = self.invoke(ctx)
+  File "D:\Jong\Jong\lib\site-packages\click\core.py", line 1434, in invoke
+    return ctx.invoke(self.callback, **ctx.params)
+  File "D:\Jong\Jong\lib\site-packages\click\core.py", line 783, in invoke
+    return __callback(*args, **kwargs)
+  File "D:\Jong\Jong\lib\site-packages\click\decorators.py", line 33, in new_func
+    return f(get_current_context(), *args, **kwargs)
+  File "D:\Jong\Jong\MAT\train.py", line 660, in main
+    subprocess_fn(rank=0, args=args, temp_dir=temp_dir)
+  File "D:\Jong\Jong\MAT\train.py", line 489, in subprocess_fn
+    training_loop.training_loop(rank=rank, **args)
+  File "D:\Jong\Jong\MAT\training\training_loop.py", line 315, in training_loop
+    all_gen_c = torch.from_numpy(np.stack(all_gen_c)).pin_memory().to(device)
+NotImplementedError: Could not run 'aten::_pin_memory' with arguments from the 'CUDA' backend. This could be because the operator doesn't exist for this backend, or was omitted during the selective/custom build process (if using custom build). If you are a Facebook employee using PyTorch on mobile, please visit https://fburl.com/ptmfixes for possible resolutions. 'aten::_pin_memory' is only available for these backends: [Meta, NestedTensorCPU, BackendSelect, Python, FuncTorchDynamicLayerBackMode, Functionalize, Named, Conjugate, Negative, ZeroTensor, ADInplaceOrView, AutogradOther, AutogradCPU, AutogradCUDA, AutogradHIP, AutogradXLA, AutogradMPS, AutogradIPU, AutogradXPU, AutogradHPU, AutogradVE, AutogradLazy, AutogradMTIA, AutogradPrivateUse1, AutogradPrivateUse2, AutogradPrivateUse3, AutogradMeta, AutogradNestedTensor, Tracer, AutocastCPU, AutocastXPU, AutocastCUDA, FuncTorchBatched, BatchedNestedTensor, FuncTorchVmapMode, Batched, VmapMode, FuncTorchGradWrapper, PythonTLSSnapshot, FuncTorchDynamicLayerFrontMode, PreDispatch, PythonDispatcher].
+
+Meta: registered at C:\actions-runner\_work\pytorch\pytorch\builder\windows\pytorch\aten\src\ATen\core\MetaFallbackKernel.cpp:23 [backend fallback]
+NestedTensorCPU: registered at C:\actions-runner\_work\pytorch\pytorch\builder\windows\pytorch\build\aten\src\ATen\RegisterNestedTensorCPU.cpp:783 [kernel]
+BackendSelect: registered at C:\actions-runner\_work\pytorch\pytorch\builder\windows\pytorch\build\aten\src\ATen\RegisterBackendSelect.cpp:815 [kernel]
+Python: registered at C:\actions-runner\_work\pytorch\pytorch\builder\windows\pytorch\aten\src\ATen\core\PythonFallbackKernel.cpp:153 [backend fallback]
+FuncTorchDynamicLayerBackMode: registered at C:\actions-runner\_work\pytorch\pytorch\builder\windows\pytorch\aten\src\ATen\functorch\DynamicLayer.cpp:497 [backend fallback]
+Functionalize: registered at C:\actions-runner\_work\pytorch\pytorch\builder\windows\pytorch\aten\src\ATen\FunctionalizeFallbackKernel.cpp:349 [backend fallback]
+Named: registered at C:\actions-runner\_work\pytorch\pytorch\builder\windows\pytorch\aten\src\ATen\core\NamedRegistrations.cpp:7 [backend fallback]
+Conjugate: registered at C:\actions-runner\_work\pytorch\pytorch\builder\windows\pytorch\aten\src\ATen\ConjugateFallback.cpp:17 [backend fallback]
+Negative: registered at C:\actions-runner\_work\pytorch\pytorch\builder\windows\pytorch\aten\src\ATen\native\NegateFallback.cpp:18 [backend fallback]
+ZeroTensor: registered at C:\actions-runner\_work\pytorch\pytorch\builder\windows\pytorch\aten\src\ATen\ZeroTensorFallback.cpp:86 [backend fallback]
+ADInplaceOrView: fallthrough registered at C:\actions-runner\_work\pytorch\pytorch\builder\windows\pytorch\aten\src\ATen\core\VariableFallbackKernel.cpp:86 [backend fallback]
+AutogradOther: registered at C:\actions-runner\_work\pytorch\pytorch\builder\windows\pytorch\torch\csrc\autograd\generated\VariableType_0.cpp:18032 [autograd kernel]
+AutogradCPU: registered at C:\actions-runner\_work\pytorch\pytorch\builder\windows\pytorch\torch\csrc\autograd\generated\VariableType_0.cpp:18032 [autograd kernel]
+AutogradCUDA: registered at C:\actions-runner\_work\pytorch\pytorch\builder\windows\pytorch\torch\csrc\autograd\generated\VariableType_0.cpp:18032 [autograd kernel]
+AutogradHIP: registered at C:\actions-runner\_work\pytorch\pytorch\builder\windows\pytorch\torch\csrc\autograd\generated\VariableType_0.cpp:18032 [autograd kernel]
+AutogradXLA: registered at C:\actions-runner\_work\pytorch\pytorch\builder\windows\pytorch\torch\csrc\autograd\generated\VariableType_0.cpp:18032 [autograd kernel]
+AutogradMPS: registered at C:\actions-runner\_work\pytorch\pytorch\builder\windows\pytorch\torch\csrc\autograd\generated\VariableType_0.cpp:18032 [autograd kernel]
+AutogradIPU: registered at C:\actions-runner\_work\pytorch\pytorch\builder\windows\pytorch\torch\csrc\autograd\generated\VariableType_0.cpp:18032 [autograd kernel]
+AutogradXPU: registered at C:\actions-runner\_work\pytorch\pytorch\builder\windows\pytorch\torch\csrc\autograd\generated\VariableType_0.cpp:18032 [autograd kernel]
+AutogradHPU: registered at C:\actions-runner\_work\pytorch\pytorch\builder\windows\pytorch\torch\csrc\autograd\generated\VariableType_0.cpp:18032 [autograd kernel]
+AutogradVE: registered at C:\actions-runner\_work\pytorch\pytorch\builder\windows\pytorch\torch\csrc\autograd\generated\VariableType_0.cpp:18032 [autograd kernel]
+AutogradLazy: registered at C:\actions-runner\_work\pytorch\pytorch\builder\windows\pytorch\torch\csrc\autograd\generated\VariableType_0.cpp:18032 [autograd kernel]
+AutogradMTIA: registered at C:\actions-runner\_work\pytorch\pytorch\builder\windows\pytorch\torch\csrc\autograd\generated\VariableType_0.cpp:18032 [autograd kernel]
+AutogradPrivateUse1: registered at C:\actions-runner\_work\pytorch\pytorch\builder\windows\pytorch\torch\csrc\autograd\generated\VariableType_0.cpp:18032 [autograd kernel]
+AutogradPrivateUse2: registered at C:\actions-runner\_work\pytorch\pytorch\builder\windows\pytorch\torch\csrc\autograd\generated\VariableType_0.cpp:18032 [autograd kernel]
+AutogradPrivateUse3: registered at C:\actions-runner\_work\pytorch\pytorch\builder\windows\pytorch\torch\csrc\autograd\generated\VariableType_0.cpp:18032 [autograd kernel]
+AutogradMeta: registered at C:\actions-runner\_work\pytorch\pytorch\builder\windows\pytorch\torch\csrc\autograd\generated\VariableType_0.cpp:18032 [autograd kernel]
+AutogradNestedTensor: registered at C:\actions-runner\_work\pytorch\pytorch\builder\windows\pytorch\torch\csrc\autograd\generated\VariableType_0.cpp:18032 [autograd kernel]
+Tracer: registered at C:\actions-runner\_work\pytorch\pytorch\builder\windows\pytorch\torch\csrc\autograd\generated\TraceType_0.cpp:17004 [kernel]
+AutocastCPU: fallthrough registered at C:\actions-runner\_work\pytorch\pytorch\builder\windows\pytorch\aten\src\ATen\autocast_mode.cpp:209 [backend fallback]
+AutocastXPU: fallthrough registered at C:\actions-runner\_work\pytorch\pytorch\builder\windows\pytorch\aten\src\ATen\autocast_mode.cpp:351 [backend fallback]
+AutocastCUDA: fallthrough registered at C:\actions-runner\_work\pytorch\pytorch\builder\windows\pytorch\aten\src\ATen\autocast_mode.cpp:165 [backend fallback]
+FuncTorchBatched: registered at C:\actions-runner\_work\pytorch\pytorch\builder\windows\pytorch\aten\src\ATen\functorch\LegacyBatchingRegistrations.cpp:731 [backend fallback]
+BatchedNestedTensor: registered at C:\actions-runner\_work\pytorch\pytorch\builder\windows\pytorch\aten\src\ATen\functorch\LegacyBatchingRegistrations.cpp:758 [backend fallback]
+FuncTorchVmapMode: fallthrough registered at C:\actions-runner\_work\pytorch\pytorch\builder\windows\pytorch\aten\src\ATen\functorch\VmapModeRegistrations.cpp:27 [backend fallback]
+Batched: registered at C:\actions-runner\_work\pytorch\pytorch\builder\windows\pytorch\aten\src\ATen\LegacyBatchingRegistrations.cpp:1075 [backend fallback]
+VmapMode: fallthrough registered at C:\actions-runner\_work\pytorch\pytorch\builder\windows\pytorch\aten\src\ATen\VmapModeRegistrations.cpp:33 [backend fallback]
+FuncTorchGradWrapper: registered at C:\actions-runner\_work\pytorch\pytorch\builder\windows\pytorch\aten\src\ATen\functorch\TensorWrapper.cpp:207 [backend fallback]
+PythonTLSSnapshot: registered at C:\actions-runner\_work\pytorch\pytorch\builder\windows\pytorch\aten\src\ATen\core\PythonFallbackKernel.cpp:161 [backend fallback]
+FuncTorchDynamicLayerFrontMode: registered at C:\actions-runner\_work\pytorch\pytorch\builder\windows\pytorch\aten\src\ATen\functorch\DynamicLayer.cpp:493 [backend fallback]
+PreDispatch: registered at C:\actions-runner\_work\pytorch\pytorch\builder\windows\pytorch\aten\src\ATen\core\PythonFallbackKernel.cpp:165 [backend fallback]
+PythonDispatcher: registered at C:\actions-runner\_work\pytorch\pytorch\builder\windows\pytorch\aten\src\ATen\core\PythonFallbackKernel.cpp:157 [backend fallback]
+

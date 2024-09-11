@@ -1,0 +1,44 @@
+Loading training set...
+D:\Jong\Jong\lib\site-packages\torch\utils\data\sampler.py:65: UserWarning: `data_source` argument is not used and will be removed in 2.2.0.You may still have custom implementation that utilizes it.
+  warnings.warn("`data_source` argument is not used and will be removed in 2.2.0."
+
+Num images:  1
+Image shape: [3, 512, 512]
+Label shape: [0]
+
+Constructing networks...
+Traceback (most recent call last):
+  File "D:\Jong\Jong\MAT\train.py", line 667, in <module>
+    main() # pylint: disable=no-value-for-parameter
+  File "D:\Jong\Jong\lib\site-packages\click\core.py", line 1157, in __call__
+    return self.main(*args, **kwargs)
+  File "D:\Jong\Jong\lib\site-packages\click\core.py", line 1078, in main
+    rv = self.invoke(ctx)
+  File "D:\Jong\Jong\lib\site-packages\click\core.py", line 1434, in invoke
+    return ctx.invoke(self.callback, **ctx.params)
+  File "D:\Jong\Jong\lib\site-packages\click\core.py", line 783, in invoke
+    return __callback(*args, **kwargs)
+  File "D:\Jong\Jong\lib\site-packages\click\decorators.py", line 33, in new_func
+    return f(get_current_context(), *args, **kwargs)
+  File "D:\Jong\Jong\MAT\train.py", line 660, in main
+    subprocess_fn(rank=0, args=args, temp_dir=temp_dir)
+  File "D:\Jong\Jong\MAT\train.py", line 489, in subprocess_fn
+    training_loop.training_loop(rank=rank, **args)
+  File "D:\Jong\Jong\MAT\training\training_loop.py", line 153, in training_loop
+    G = dnnlib.util.construct_class_by_name(**G_kwargs, **common_kwargs).train().requires_grad_(False).to(device) # subclass of torch.nn.Module
+  File "D:\Jong\Jong\lib\site-packages\torch\nn\modules\module.py", line 1174, in to
+    return self._apply(convert)
+  File "D:\Jong\Jong\lib\site-packages\torch\nn\modules\module.py", line 780, in _apply
+    module._apply(fn)
+  File "D:\Jong\Jong\lib\site-packages\torch\nn\modules\module.py", line 780, in _apply
+    module._apply(fn)
+  File "D:\Jong\Jong\lib\site-packages\torch\nn\modules\module.py", line 780, in _apply
+    module._apply(fn)
+  [Previous line repeated 1 more time]
+  File "D:\Jong\Jong\lib\site-packages\torch\nn\modules\module.py", line 805, in _apply
+    param_applied = fn(param)
+  File "D:\Jong\Jong\lib\site-packages\torch\nn\modules\module.py", line 1160, in convert
+    return t.to(
+  File "D:\Jong\Jong\lib\site-packages\torch\cuda\__init__.py", line 305, in _lazy_init
+    raise AssertionError("Torch not compiled with CUDA enabled")
+AssertionError: Torch not compiled with CUDA enabled

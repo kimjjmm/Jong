@@ -1,0 +1,53 @@
+Loading training set...
+D:\Jong\Jong\lib\site-packages\torch\utils\data\sampler.py:65: UserWarning: `data_source` argument is not used and will be removed in 2.2.0.You may still have custom implementation that utilizes it.
+  warnings.warn("`data_source` argument is not used and will be removed in 2.2.0."
+
+Num images:  1
+Image shape: [3, 512, 512]
+Label shape: [0]
+
+Constructing networks...
+Traceback (most recent call last):
+  File "D:\Jong\Jong\MAT\train.py", line 648, in <module>
+    main() # pylint: disable=no-value-for-parameter
+  File "D:\Jong\Jong\lib\site-packages\click\core.py", line 1157, in __call__
+    return self.main(*args, **kwargs)
+  File "D:\Jong\Jong\lib\site-packages\click\core.py", line 1078, in main
+    rv = self.invoke(ctx)
+  File "D:\Jong\Jong\lib\site-packages\click\core.py", line 1434, in invoke
+    return ctx.invoke(self.callback, **ctx.params)
+  File "D:\Jong\Jong\lib\site-packages\click\core.py", line 783, in invoke
+    return __callback(*args, **kwargs)
+  File "D:\Jong\Jong\lib\site-packages\click\decorators.py", line 33, in new_func
+    return f(get_current_context(), *args, **kwargs)
+  File "D:\Jong\Jong\MAT\train.py", line 641, in main
+    subprocess_fn(rank=0, args=args, temp_dir=temp_dir)
+  File "D:\Jong\Jong\MAT\train.py", line 471, in subprocess_fn
+    training_loop.training_loop(rank=rank, **args)
+  File "D:\Jong\Jong\MAT\training\training_loop.py", line 152, in training_loop
+    G = dnnlib.util.construct_class_by_name(**G_kwargs, **common_kwargs).train().requires_grad_(False).to(device) # subclass of torch.nn.Module
+  File "D:\Jong\Jong\MAT\dnnlib\util.py", line 289, in construct_class_by_name
+    return call_func_by_name(*args, func_name=class_name, **kwargs)
+  File "D:\Jong\Jong\MAT\dnnlib\util.py", line 282, in call_func_by_name
+    func_obj = get_obj_by_name(func_name)
+  File "D:\Jong\Jong\MAT\dnnlib\util.py", line 275, in get_obj_by_name
+    module, obj_name = get_module_from_obj_name(name)
+  File "D:\Jong\Jong\MAT\dnnlib\util.py", line 246, in get_module_from_obj_name
+    importlib.import_module(module_name) # may raise ImportError
+  File "C:\Users\rlawl\AppData\Local\Programs\Python\Python310\lib\importlib\__init__.py", line 126, in import_module
+    return _bootstrap._gcd_import(name[level:], package, level)
+  File "<frozen importlib._bootstrap>", line 1050, in _gcd_import
+  File "<frozen importlib._bootstrap>", line 1027, in _find_and_load
+  File "<frozen importlib._bootstrap>", line 992, in _find_and_load_unlocked
+  File "<frozen importlib._bootstrap>", line 241, in _call_with_frames_removed
+  File "<frozen importlib._bootstrap>", line 1050, in _gcd_import
+  File "<frozen importlib._bootstrap>", line 1027, in _find_and_load
+  File "<frozen importlib._bootstrap>", line 1006, in _find_and_load_unlocked
+  File "<frozen importlib._bootstrap>", line 688, in _load_unlocked
+  File "<frozen importlib._bootstrap_external>", line 883, in exec_module
+  File "<frozen importlib._bootstrap>", line 241, in _call_with_frames_removed
+  File "D:\Jong\Jong\MAT\networks\mat.py", line 10, in <module>
+    from timm.models.layers import DropPath, to_2tuple, trunc_normal_
+  File "D:\Jong\Jong\lib\site-packages\timm\__init__.py", line 1, in <module>
+    from .version import __version__
+ModuleNotFoundError: No module named 'timm.version'
